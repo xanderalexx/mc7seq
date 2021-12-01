@@ -1,0 +1,3 @@
+[submodule "sevenseq"]
+	path = sevenseq
+	url = https://github.com/xanderalexx/sevenseq.git
