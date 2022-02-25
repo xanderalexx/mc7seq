@@ -8,6 +8,8 @@ import math
 if __name__ == '__main__':
     import config.config as config
 
+#No clue what this other code does, not sure how to improve on it
+
 print(len(sys.argv), str(sys.argv))
 arg = sys.argv[1]
 try:
@@ -85,45 +87,50 @@ with r(config.ip, config.password) as mcr:
                     #print ("\033[A                             \033[A")
                     print("idk")
             else:
-                if "diamond" in item:
-                    maxDamage = 1561
-                elif "iron" in item:
-                    maxDamage = 250
-                elif "stone" in item:
-                    maxDamage = 131
-                elif "gold" in item:
-                    maxDamage = 32
-                elif "wood" in item:
-                    maxDamage = 59
-                elif "netherite" in item:
-                    maxDamage = 2031
-                elif "bow" in item:
-                    maxDamage = 384
-                elif "fishing" in item:
-                    maxDamage = 64
-                elif "flint" in item:
-                    maxDamage = 64
-                elif "carrot" in item:
-                    maxDamage = 25
-                elif "shear" in item:
-                    maxDamage = 238
-                elif "shield" in item:
-                    maxDamage = 336
-                elif "trident" in item:
-                    maxDamage = 250
-                elif "elytra" in item:
-                    maxDamage = 432
-                elif "crossbow" in item:
-                    maxDamage = 465
-                elif "warped" in item:
-                    maxDamage = 100
+                # The match case statement is new to 3.10.
+                # if you don't wanna use the match case statements, you can always revert back to elif statements.
+                # NOTE: match case statements don't work with the "in" operator. So the values like "diamond" have to be exactly that.
+                match item:
+                    case "netherite":
+                        maxDamage = 2031
+                    case "diamond":
+                        maxDamage = 1561
+                    case "crossbow":
+                        maxDamage = 465
+                    case "elytra":
+                        maxDamage = 432
+                    case "bow":
+                        maxDamage = 384
+                    case "shield":
+                        maxDamage = 336
+                    #There were some repetitive elif statements that assigned the same values.
+                    #You could just use the or operator (in match case statements, the bitwise or operator | ).
+                    case "iron" | "trident":
+                        maxDamage = 250
+                    case "shear":
+                        maxDamage = 238
+                    case "stone":
+                        maxDamage = 131
+                    case "warped":
+                        maxDamage = 100
+                    case "fishing" | "flint":
+                        maxDamage = 64
+                    case "wood":
+                        maxDamage = 59
+                    case "gold":
+                        maxDamage = 32
+                    case "carrot":
+                        maxDamage = 25
+                    #Feel free to add a default case by using "case _: <statement>".
                 try:
                     newDamage = (maxDamage - damage)
                     final = round((newDamage / maxDamage) * 100)
                     if final == 100:
                         final = 99
                     #print ("\033[A                             \033[A")
-                    print("id: " + item + ", (" + str(newDamage) + " / " + str(maxDamage) + ") * 100 = " + str(final))
+                    #Uses f"" to put variables in strings with better readability. As far as I know they work the same as str.format().
+                    #To add a variable in a string just wrap the variable in curly braces as seen below.
+                    print(f"id: {item}, ({str(newDamage)}/{str(maxDamage)}) * 100 = {str(final)}")
                     sevenseq.setnum(final)
                 except:
                     #print ("\033[A                             \033[A")
